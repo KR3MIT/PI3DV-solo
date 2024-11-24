@@ -85,6 +85,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8828737885404767807, guid: 9b756581c1cdb1340bac1893ecaa3735, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -113,6 +117,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8180060858873542618}
     m_Modifications:
+    - target: {fileID: 522318050787705317, guid: e59808b936fbfff40a6b05e71932e585, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.274
+      objectReference: {fileID: 0}
+    - target: {fileID: 522318050787705317, guid: e59808b936fbfff40a6b05e71932e585, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.377
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628615634240749812, guid: e59808b936fbfff40a6b05e71932e585, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436392690128995251, guid: e59808b936fbfff40a6b05e71932e585, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.149
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436392690128995251, guid: e59808b936fbfff40a6b05e71932e585, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.323
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436392690128995251, guid: e59808b936fbfff40a6b05e71932e585, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.111
+      objectReference: {fileID: 0}
     - target: {fileID: 4591899511252066187, guid: e59808b936fbfff40a6b05e71932e585, type: 3}
       propertyPath: m_Name
       value: mp5 arms

@@ -1,45 +1,39 @@
 using UnityEngine;
-using UnityEditor.Animations;
 
 public class WeaponBehavior : MonoBehaviour
 {
-    public WeaponBase weaponData;
     public string weaponName = "name";
+    public int currentAmmo;
+    public int ammoInMag;
+    private WeaponBase weaponData;
+    private PlayerInventory playerInv;
     private PlayerAnimController playerAC;
     private int maxAmmo;
-    [HideInInspector]public int magSize;
-    public int currentAmmo;
+    private int magSize;
     private float damage;
     private float fireRate;
-    private int ammoInMag;
-    [SerializeField]private AudioSource audioSource;
-    [SerializeField]private AudioClip[] fireClips = default;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        SetValues();
-        SetAudio();
-    }
-    private void SetAudio()
+    private AudioSource audioSource;
+    private AudioClip[] fireClips = default;
+    void Awake()
     {
         audioSource = GetComponent<AudioSource>();
     }
-    private void SetValues()
+    public void SetValues()
     {
+        playerInv = GetComponent<PlayerInventory>();
         playerAC = GetComponent<PlayerAnimController>();
-        WeaponBase weapon = (WeaponBase)weaponData;
-        weaponName = weapon.weaponName;
-        maxAmmo = weapon.maxAmmo;
-        magSize = weapon.magSize;
-        currentAmmo = weapon.currentAmmo;
-        damage = weapon.damage;
-        fireRate = weapon.fireRate;
-        ammoInMag = weapon.ammoInMag;
 
-        ammoInMag = magSize;
-        currentAmmo = maxAmmo;
+        weaponData = playerInv.weaponData;
+
+        weaponName = weaponData.weaponName;
+        maxAmmo = weaponData.maxAmmo;
+        magSize = weaponData.magSize;
+        currentAmmo = weaponData.currentAmmo;
+        ammoInMag = weaponData.ammoInMag;
+        damage = weaponData.damage;
+        fireRate = weaponData.fireRate;
+        fireClips = weaponData.fireClips;
     }
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.R))
@@ -49,12 +43,22 @@ public class WeaponBehavior : MonoBehaviour
     }
     private void Fire()
     {
+        if(ammoInMag > 0)
+        {
+            ammoInMag--;
             playerAC.Fire();
-
+        }
+        else
+        {
+            Reload();
+        }
+        playerAC.Fire();
     }
     private void Reload()
     {
-        
+        if(ammoInMag <= magSize - 1)
+        {
         playerAC.Reload();
+        }
     }
 }

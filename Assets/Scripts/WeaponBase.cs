@@ -7,6 +7,7 @@ public class WeaponBase : ScriptableObject
 {
     public string weaponName = "name";
     public GameObject weaponPrefab;
+    public GameObject worldModelPrefab;
     public int maxAmmo = 150;
     public int magSize = 30;
     public int ammoInMag;

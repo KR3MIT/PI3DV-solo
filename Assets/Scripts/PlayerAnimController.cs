@@ -3,32 +3,33 @@ using UnityEditor.Animations;
 
 public class PlayerAnimController : MonoBehaviour
 {
-    [SerializeField]private WeaponBehavior _weapon;
-    [SerializeField]private WeaponBase _weaponData;
-    [SerializeField]private GameObject _weaponPrefab;
-    [SerializeField]private Animator _weaponAC;
-    [SerializeField]private Animator _armAC;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private PlayerInventory _playerInv;
+    private WeaponBase _weaponData;
+    private GameObject _weaponPrefab;
+    private Animator _weaponAC;
+    private Animator _armAC;
+    private GameObject viewModel = null;
     void Start()
     {
-        InitiateWeapon();
+        _playerInv = GetComponent<PlayerInventory>();
     }
-
-    private void InitiateWeapon()
+    public void InitiateWeapon(WeaponBase weaponData)
     {
-        _weapon = GetComponent<WeaponBehavior>();
-        _weaponData = _weapon.weaponData;
+        Destroy(viewModel);
+        if (weaponData == null)
+            return;
+        else
+            UpdateViewModel(weaponData);
+    }
+    private void UpdateViewModel(WeaponBase weaponData)
+    {
+        _weaponData = weaponData;
         _weaponPrefab = _weaponData.weaponPrefab;
-        
-        GameObject weapon = Instantiate(_weaponPrefab, Camera.main.transform);
-        _armAC = weapon.transform.GetChild(0).GetComponent<Animator>();
-        _weaponAC = weapon.transform.GetChild(1).GetComponent<Animator>();
-    }
-    // Update is called once per frame
-    void Update()
-    {
 
+        viewModel = Instantiate(_weaponPrefab, Camera.main.transform);
+
+        _armAC = viewModel.transform.GetChild(0).GetComponent<Animator>();
+        _weaponAC = viewModel.transform.GetChild(1).GetComponent<Animator>();
     }
     public void Fire()
     {
