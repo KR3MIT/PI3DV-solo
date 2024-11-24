@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a70ca04aa1bc21d4399cb8204fd95e06, type: 3}
+  m_Name: MP5
+  m_EditorClassIdentifier: 
+  weaponName: MP5
+  weaponPrefab: {fileID: 2848918829891071998, guid: c150eda66c717d34387783ea032412d2, type: 3}
+  maxAmmo: 150
+  magSize: 30
+  ammoInMag: 0
+  currentAmmo: 0
+  damage: 30
+  fireRate: 0.1
+  fireClips: []
