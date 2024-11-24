@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEditor.Build.Player;
 using UnityEngine;
 public class PlayerInventory : MonoBehaviour
@@ -33,7 +34,6 @@ public class PlayerInventory : MonoBehaviour
         currentWeapon = slots[currentSlot];
         weaponData = currentWeapon;
         playerAC.InitiateWeapon(weaponData);
-        weaponB.SetValues();
         
         if(weaponData != null)
         {
@@ -61,6 +61,7 @@ public class PlayerInventory : MonoBehaviour
         if(currentWeapon != null)
         {
             GameObject droppedWeapon = Instantiate(currentWeapon.worldModelPrefab, Camera.main.transform.position + transform.forward, Camera.main.transform.rotation);
+            droppedWeapon.GetComponent<WeaponItem>().weaponData = currentWeapon;
             Rigidbody rb = droppedWeapon.GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * dropForce, ForceMode.Impulse);
             

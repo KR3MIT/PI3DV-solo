@@ -5,8 +5,8 @@ public class PlayerGUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text ammoText;
     [SerializeField] private TMP_Text invText;
-    private void ammo(WeaponBase _weaponData)
+    public void ammo(int ammoInMag, int currentAmmo)
     {
-        ammoText.text = _weaponData.ammoInMag + " / " + _weaponData.currentAmmo;
+        ammoText.text = ammoInMag + " / " + currentAmmo;
     }
 }

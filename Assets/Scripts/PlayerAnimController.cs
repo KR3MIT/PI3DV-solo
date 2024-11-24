@@ -31,10 +31,10 @@ public class PlayerAnimController : MonoBehaviour
         _armAC = viewModel.transform.GetChild(0).GetComponent<Animator>();
         _weaponAC = viewModel.transform.GetChild(1).GetComponent<Animator>();
     }
-    public void Fire()
+    public void Fire(bool isFiring)
     {
-        _weaponAC.SetTrigger("Fire");
-        _armAC.SetTrigger("Fire");
+        _weaponAC.SetBool("Fire", isFiring);
+        _armAC.SetBool("Fire", isFiring);
     }
     public void Reload()
     {

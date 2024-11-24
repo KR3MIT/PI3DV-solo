@@ -14,9 +14,11 @@ public class WeaponBehavior : MonoBehaviour
     private float fireRate;
     private AudioSource audioSource;
     private AudioClip[] fireClips = default;
+    private PlayerGUI playerGUI;
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        playerGUI = GetComponent<PlayerGUI>();
     }
     public void SetValues()
     {
@@ -33,32 +35,53 @@ public class WeaponBehavior : MonoBehaviour
         damage = weaponData.damage;
         fireRate = weaponData.fireRate;
         fireClips = weaponData.fireClips;
+
+        ammoInMag = magSize;
+        currentAmmo = maxAmmo;
+
+        playerGUI.ammo(ammoInMag, currentAmmo);
     }
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.R))
-        {
             Reload();
-        }
+
+        if(Input.GetMouseButton(0))
+            Fire();
+
     }
     private void Fire()
     {
-        if(ammoInMag > 0)
+        if(Time.time >= fireRate && ammoInMag > 0)
         {
+            playerAC.Fire(true);
             ammoInMag--;
-            playerAC.Fire();
+            fireRate = Time.time + weaponData.fireRate;
+            playerAC.Fire(false);
+            playerGUI.ammo(ammoInMag, currentAmmo);
         }
-        else
+        else if(ammoInMag == 0)
         {
             Reload();
         }
-        playerAC.Fire();
     }
     private void Reload()
     {
-        if(ammoInMag <= magSize - 1)
+        if(currentAmmo > 0 && ammoInMag < magSize)
         {
-        playerAC.Reload();
+            playerAC.Reload();
+            int ammoNeeded = magSize - ammoInMag;
+            if(currentAmmo >= ammoNeeded)
+            {
+                currentAmmo -= ammoNeeded;
+                ammoInMag = magSize;
+            }
+            else if (currentAmmo < ammoNeeded)
+            {
+                ammoInMag += currentAmmo;
+                currentAmmo = 0;
+            }
         }
+        playerGUI.ammo(ammoInMag, currentAmmo);
     }
 }
