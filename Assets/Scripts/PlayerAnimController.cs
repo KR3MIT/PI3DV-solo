@@ -10,6 +10,10 @@ public class PlayerAnimController : MonoBehaviour
     private Animator armAC;
     private GameObject viewModel = null;
     private FpsController fps;
+    void Awake()
+    {
+        fps = GetComponent<FpsController>();
+    }
     public void InitiateWeapon(GameObject _currentWeapon)
     {
         Destroy(viewModel);
@@ -43,11 +47,13 @@ public class PlayerAnimController : MonoBehaviour
 
     void Update()
     {
-        DirectionalSway();
+        if(viewModel == null)
+            return;
+            DirectionalSway();
     }
     private void DirectionalSway()
     {
         //viewModel.transform
-        Vector3 velocity = fps._velocity ;
+        //Vector3 velocity = fps._velocity ;
     }
 }

@@ -27,7 +27,6 @@ public class WeaponBehavior : MonoBehaviour
     {
         if(playerInv.currentWeapon == null)
         {
-            Debug.Log("Weapon data is null");
             playerGUI.ammo(0, 0);
             return;
         }

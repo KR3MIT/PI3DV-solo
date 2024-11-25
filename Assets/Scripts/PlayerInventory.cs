@@ -43,7 +43,6 @@ public class PlayerInventory : MonoBehaviour
             currentWeapon.SetActive(true);
             currentWeapon.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2;
             currentWeapon.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * dropForce, ForceMode.Impulse);
-            Debug.Log("current weapon is not null");
             currentWeapon = null;
             slots[currentSlot] = null;
         }
