@@ -5,18 +5,22 @@ public class WeaponItem : MonoBehaviour
     public WeaponBase weaponData;
     public int ammoInMag;
     public int currentAmmo;
+    private void OnTriggerEnter(Collider _other)
+    {
+        if(_other.gameObject.CompareTag("Player"))
+        {
+        _other.gameObject.GetComponentInParent<PlayerInventory>().addWeapon(this.gameObject);
+        Debug.Log("picked up " + weaponData.weaponName);
+        gameObject.SetActive(false);
+        }
+    }
+    public void updateValues(int _ammoInMag, int _currentAmmo)
+    {
+        ammoInMag = _ammoInMag;
+        currentAmmo = _currentAmmo;
+    }
     void Start()
     {
-        ammoInMag = weaponData.ammoInMag;
-        currentAmmo = weaponData.currentAmmo;
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag("Player"))
-        {
-        other.gameObject.GetComponentInParent<PlayerInventory>().addWeapon(weaponData);
-        Debug.Log("picked up " + weaponData.weaponName);
-        Destroy(gameObject);
-        }
+        updateValues(weaponData.magSize, weaponData.maxAmmo);
     }
 }

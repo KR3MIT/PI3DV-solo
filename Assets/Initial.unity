@@ -263,7 +263,7 @@ PrefabInstance:
     - target: {fileID: 5888477816431148822, guid: 680a11299af23874bbc0b94457026c5e, type: 3}
       propertyPath: 'slots.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 14c7935592a548149ab1cace5eefa837, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 7047462000523034513, guid: 680a11299af23874bbc0b94457026c5e, type: 3}
       propertyPath: invText
       value: 
@@ -744,6 +744,18 @@ PrefabInstance:
     - target: {fileID: 4054763944325115179, guid: d2f2b2e5b933ebb48b4a4ba12608db0c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8368893320754922936, guid: d2f2b2e5b933ebb48b4a4ba12608db0c, type: 3}
+      propertyPath: ammoInMag
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8368893320754922936, guid: d2f2b2e5b933ebb48b4a4ba12608db0c, type: 3}
+      propertyPath: weaponData
+      value: 
+      objectReference: {fileID: 11400000, guid: 14c7935592a548149ab1cace5eefa837, type: 2}
+    - target: {fileID: 8368893320754922936, guid: d2f2b2e5b933ebb48b4a4ba12608db0c, type: 3}
+      propertyPath: currentAmmo
+      value: 150
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

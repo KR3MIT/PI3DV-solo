@@ -17,8 +17,8 @@ MonoBehaviour:
   worldModelPrefab: {fileID: 3107370228721066980, guid: d2f2b2e5b933ebb48b4a4ba12608db0c, type: 3}
   maxAmmo: 150
   magSize: 30
-  ammoInMag: 0
-  currentAmmo: 0
+  ammoInMag: 30
+  currentAmmo: 150
   damage: 30
-  fireRate: 0.1
+  fireRate: 0.05
   fireClips: []

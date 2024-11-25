@@ -3,42 +3,41 @@ using UnityEditor.Animations;
 
 public class PlayerAnimController : MonoBehaviour
 {
-    private PlayerInventory _playerInv;
-    private WeaponBase _weaponData;
-    private GameObject _weaponPrefab;
-    private Animator _weaponAC;
-    private Animator _armAC;
+    private WeaponBase weaponData;
+    private GameObject weaponPrefab;
+    private Animator weaponAC;
+    private Animator armAC;
     private GameObject viewModel = null;
-    void Start()
-    {
-        _playerInv = GetComponent<PlayerInventory>();
-    }
-    public void InitiateWeapon(WeaponBase weaponData)
+    public void InitiateWeapon(GameObject _currentWeapon)
     {
         Destroy(viewModel);
-        if (weaponData == null)
+        Debug.Log("destoryed viewmodel");
+        if (_currentWeapon == null)
             return;
         else
-            UpdateViewModel(weaponData);
+        {
+            weaponData = _currentWeapon.GetComponent<WeaponItem>().weaponData;
+            UpdateViewModel();
+        }
     }
-    private void UpdateViewModel(WeaponBase weaponData)
+    private void UpdateViewModel()
     {
-        _weaponData = weaponData;
-        _weaponPrefab = _weaponData.weaponPrefab;
+        Destroy(viewModel);
+        weaponPrefab = weaponData.weaponPrefab;
 
-        viewModel = Instantiate(_weaponPrefab, Camera.main.transform);
+        viewModel = Instantiate(weaponPrefab, Camera.main.transform);
 
-        _armAC = viewModel.transform.GetChild(0).GetComponent<Animator>();
-        _weaponAC = viewModel.transform.GetChild(1).GetComponent<Animator>();
+        armAC = viewModel.transform.GetChild(0).GetComponent<Animator>();
+        weaponAC = viewModel.transform.GetChild(1).GetComponent<Animator>();
     }
     public void Fire(bool isFiring)
     {
-        _weaponAC.SetBool("Fire", isFiring);
-        _armAC.SetBool("Fire", isFiring);
+        weaponAC.SetBool("Fire", isFiring);
+        armAC.SetBool("Fire", isFiring);
     }
     public void Reload()
     {
-        _weaponAC.SetTrigger("Reload");
-        _armAC.SetTrigger("Reload");
+        weaponAC.SetTrigger("Reload");
+        armAC.SetTrigger("Reload");
     }
 }

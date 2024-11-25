@@ -1,11 +1,9 @@
 using UnityEngine;
-
 public class WeaponBehavior : MonoBehaviour
 {
     public string weaponName = "name";
-    public int currentAmmo;
-    public int ammoInMag;
     private WeaponBase weaponData;
+    private WeaponItem WeaponItem;
     private PlayerInventory playerInv;
     private PlayerAnimController playerAC;
     private int maxAmmo;
@@ -19,27 +17,28 @@ public class WeaponBehavior : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         playerGUI = GetComponent<PlayerGUI>();
+        playerInv = GetComponent<PlayerInventory>();
+        playerAC = GetComponent<PlayerAnimController>();
     }
     public void SetValues()
     {
-        playerInv = GetComponent<PlayerInventory>();
-        playerAC = GetComponent<PlayerAnimController>();
-
-        weaponData = playerInv.weaponData;
-
+        if(playerInv.currentWeapon == null)
+        {
+            Debug.Log("Weapon data is null");
+            playerGUI.ammo(0, 0);
+            return;
+        }
+        weaponData = playerInv.currentWeapon.GetComponent<WeaponItem>().weaponData;
+        WeaponItem = playerInv.currentWeapon.GetComponent<WeaponItem>();
+    
         weaponName = weaponData.weaponName;
         maxAmmo = weaponData.maxAmmo;
         magSize = weaponData.magSize;
-        currentAmmo = weaponData.currentAmmo;
-        ammoInMag = weaponData.ammoInMag;
         damage = weaponData.damage;
         fireRate = weaponData.fireRate;
         fireClips = weaponData.fireClips;
-
-        ammoInMag = magSize;
-        currentAmmo = maxAmmo;
-
-        playerGUI.ammo(ammoInMag, currentAmmo);
+        
+        playerGUI.ammo(WeaponItem.ammoInMag, WeaponItem.currentAmmo);
     }
     void Update()
     {
@@ -52,36 +51,37 @@ public class WeaponBehavior : MonoBehaviour
     }
     private void Fire()
     {
-        if(Time.time >= fireRate && ammoInMag > 0)
+
+        if(Time.time >= fireRate && WeaponItem.ammoInMag > 0)
         {
             playerAC.Fire(true);
-            ammoInMag--;
+            WeaponItem.ammoInMag--;
             fireRate = Time.time + weaponData.fireRate;
             playerAC.Fire(false);
-            playerGUI.ammo(ammoInMag, currentAmmo);
+            playerGUI.ammo(WeaponItem.ammoInMag, WeaponItem.currentAmmo);
         }
-        else if(ammoInMag == 0)
+        else if(WeaponItem.ammoInMag == 0)
         {
             Reload();
         }
     }
     private void Reload()
     {
-        if(currentAmmo > 0 && ammoInMag < magSize)
+        if(WeaponItem.currentAmmo > 0 && WeaponItem.ammoInMag < magSize)
         {
             playerAC.Reload();
-            int ammoNeeded = magSize - ammoInMag;
-            if(currentAmmo >= ammoNeeded)
+            int ammoNeeded = magSize - WeaponItem.ammoInMag;
+            if(WeaponItem.currentAmmo >= ammoNeeded)
             {
-                currentAmmo -= ammoNeeded;
-                ammoInMag = magSize;
+                WeaponItem.currentAmmo -= ammoNeeded;
+                WeaponItem.ammoInMag = magSize;
             }
-            else if (currentAmmo < ammoNeeded)
+            else if (WeaponItem.currentAmmo < ammoNeeded)
             {
-                ammoInMag += currentAmmo;
-                currentAmmo = 0;
+                WeaponItem.ammoInMag += WeaponItem.currentAmmo;
+                WeaponItem.currentAmmo = 0;
             }
         }
-        playerGUI.ammo(ammoInMag, currentAmmo);
+        playerGUI.ammo(WeaponItem.ammoInMag, WeaponItem.currentAmmo);
     }
 }
