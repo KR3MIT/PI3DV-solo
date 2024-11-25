@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 public class WeaponBehavior : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class WeaponBehavior : MonoBehaviour
     private AudioSource audioSource;
     private AudioClip[] fireClips = default;
     private PlayerGUI playerGUI;
+    private bool isReloading = false;
+    private float reloadTime;
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -37,38 +40,48 @@ public class WeaponBehavior : MonoBehaviour
         damage = weaponData.damage;
         fireRate = weaponData.fireRate;
         fireClips = weaponData.fireClips;
+        reloadTime = weaponData.reloadTime;
+
+        isReloading = false;
         
         playerGUI.ammo(WeaponItem.ammoInMag, WeaponItem.currentAmmo);
+
+        StopAllCoroutines();
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R))
-            Reload();
-
-        if(Input.GetMouseButton(0))
-            Fire();
+        if(Input.GetKeyDown(KeyCode.R) && !isReloading)
+            StartCoroutine(Reload());
+        
+        if(Input.GetMouseButton(0) && !isReloading)
+            StartCoroutine(Fire());
 
     }
-    private void Fire()
+    IEnumerator Fire()
     {
-        if(Time.time >= fireRate && WeaponItem.ammoInMag > 0)
+        if(Time.time >= fireRate && WeaponItem.ammoInMag > 0 && !isReloading)
         {
             playerAC.Fire(true);
             WeaponItem.ammoInMag--;
             fireRate = Time.time + weaponData.fireRate;
-            playerAC.Fire(false);
             playerGUI.ammo(WeaponItem.ammoInMag, WeaponItem.currentAmmo);
         }
-        else if(WeaponItem.ammoInMag == 0)
+        else if(WeaponItem.ammoInMag == 0 && !isReloading)
         {
-            Reload();
+            StartCoroutine(Reload());
         }
+        yield return null;
+        playerAC.Fire(false);
     }
-    private void Reload()
+    IEnumerator Reload()
     {
         if(WeaponItem.currentAmmo > 0 && WeaponItem.ammoInMag < magSize)
         {
+            isReloading = true;
             playerAC.Reload();
+
+            yield return new WaitForSeconds(reloadTime);
+            
             int ammoNeeded = magSize - WeaponItem.ammoInMag;
             if(WeaponItem.currentAmmo >= ammoNeeded)
             {
@@ -80,7 +93,41 @@ public class WeaponBehavior : MonoBehaviour
                 WeaponItem.ammoInMag += WeaponItem.currentAmmo;
                 WeaponItem.currentAmmo = 0;
             }
+            isReloading = false;
         }
         playerGUI.ammo(WeaponItem.ammoInMag, WeaponItem.currentAmmo);
     }
+    // private void Fire()
+    // {
+    //     if(Time.time >= fireRate && WeaponItem.ammoInMag > 0 && !isReloading)
+    //     {
+    //         playerAC.Fire(true);
+    //         WeaponItem.ammoInMag--;
+    //         fireRate = Time.time + weaponData.fireRate;
+    //         playerGUI.ammo(WeaponItem.ammoInMag, WeaponItem.currentAmmo);
+    //     }
+    //     else if(WeaponItem.ammoInMag == 0 && !isReloading)
+    //     {
+    //         StartCoroutine(Reload());
+    //     }
+    // }
+    // private void Reload()
+    // {
+    //     if(WeaponItem.currentAmmo > 0 && WeaponItem.ammoInMag < magSize)
+    //     {
+    //         playerAC.Reload();
+    //         int ammoNeeded = magSize - WeaponItem.ammoInMag;
+    //         if(WeaponItem.currentAmmo >= ammoNeeded)
+    //         {
+    //             WeaponItem.currentAmmo -= ammoNeeded;
+    //             WeaponItem.ammoInMag = magSize;
+    //         }
+    //         else if (WeaponItem.currentAmmo < ammoNeeded)
+    //         {
+    //             WeaponItem.ammoInMag += WeaponItem.currentAmmo;
+    //             WeaponItem.currentAmmo = 0;
+    //         }
+    //     }
+    //     playerGUI.ammo(WeaponItem.ammoInMag, WeaponItem.currentAmmo);
+    // }
 }

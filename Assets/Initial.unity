@@ -701,6 +701,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2935976512900132872, guid: d2f2b2e5b933ebb48b4a4ba12608db0c, type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3107370228721066980, guid: d2f2b2e5b933ebb48b4a4ba12608db0c, type: 3}
       propertyPath: m_Name
       value: mp5 world model

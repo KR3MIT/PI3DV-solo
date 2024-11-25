@@ -14,5 +14,6 @@ public class WeaponBase : ScriptableObject
     public int currentAmmo = 150;
     public float damage = 30f;
     public float fireRate = 0.1f;
+    public float reloadTime = 1.5f;
     public AudioClip[] fireClips = default;
 }

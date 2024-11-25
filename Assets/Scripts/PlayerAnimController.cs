@@ -1,17 +1,18 @@
 using UnityEngine;
 using UnityEditor.Animations;
+using UnityEditor.Timeline.Actions;
 
 public class PlayerAnimController : MonoBehaviour
 {
+    [HideInInspector]public Animator weaponAC;
     private WeaponBase weaponData;
     private GameObject weaponPrefab;
-    private Animator weaponAC;
     private Animator armAC;
     private GameObject viewModel = null;
+    private FpsController fps;
     public void InitiateWeapon(GameObject _currentWeapon)
     {
         Destroy(viewModel);
-        Debug.Log("destoryed viewmodel");
         if (_currentWeapon == null)
             return;
         else
@@ -38,5 +39,15 @@ public class PlayerAnimController : MonoBehaviour
     {
         weaponAC.SetTrigger("Reload");
         armAC.SetTrigger("Reload");
+    }
+
+    void Update()
+    {
+        DirectionalSway();
+    }
+    private void DirectionalSway()
+    {
+        //viewModel.transform
+        Vector3 velocity = fps._velocity ;
     }
 }
