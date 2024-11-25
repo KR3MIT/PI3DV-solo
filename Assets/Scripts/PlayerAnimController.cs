@@ -22,7 +22,6 @@ public class PlayerAnimController : MonoBehaviour
     }
     private void UpdateViewModel()
     {
-        Destroy(viewModel);
         weaponPrefab = weaponData.weaponPrefab;
 
         viewModel = Instantiate(weaponPrefab, Camera.main.transform);

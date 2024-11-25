@@ -51,7 +51,6 @@ public class WeaponBehavior : MonoBehaviour
     }
     private void Fire()
     {
-
         if(Time.time >= fireRate && WeaponItem.ammoInMag > 0)
         {
             playerAC.Fire(true);
