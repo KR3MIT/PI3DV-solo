@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEditor.Animations;
 using UnityEditor.Timeline.Actions;
+using Unity.VisualScripting;
+using Unity.Mathematics;
+using UnityEngine.Rendering;
 
 public class PlayerAnimController : MonoBehaviour
 {
@@ -10,6 +13,7 @@ public class PlayerAnimController : MonoBehaviour
     private Animator armAC;
     private GameObject viewModel = null;
     private FpsController fps;
+    public float strafeSway = 1f;
     void Awake()
     {
         fps = GetComponent<FpsController>();
@@ -52,8 +56,13 @@ public class PlayerAnimController : MonoBehaviour
             DirectionalSway();
     }
     private void DirectionalSway()
-    {
-        //viewModel.transform
-        //Vector3 velocity = fps._velocity ;
+    {   
+        Transform _view = viewModel.transform.GetChild(1);
+
+        float _velocity = fps._moveInput.x;
+        float _sway = strafeSway * _velocity;
+
+        Quaternion _swayVector = Quaternion.Euler(new Vector3( 0, 0, -_sway));
+        _view.localRotation = Quaternion.Lerp(_view.localRotation, _swayVector, Time.deltaTime * 4f);
     }
 }

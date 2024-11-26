@@ -12,6 +12,7 @@ public class PlayerInventory : MonoBehaviour
     {
         playerAC = GetComponent<PlayerAnimController>();
         weaponB = GetComponent<WeaponBehavior>();
+        SetCurrentWeapon();
     }
     void Update()
     {

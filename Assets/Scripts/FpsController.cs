@@ -109,10 +109,10 @@ public class FpsController : MonoBehaviour
 
     #region Fields
     // The real velocity of this controller
-    public Vector3 _velocity;
+    private Vector3 _velocity;
 
     // Raw input taken with GetAxisRaw()
-    private Vector3 _moveInput;
+    public Vector3 _moveInput { get; private set; }
 
     // Vertical look
     private float _pitch = 0; // We keep track of this value since we want to clamp it
