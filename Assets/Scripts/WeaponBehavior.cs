@@ -1,4 +1,5 @@
 using System.Collections;
+using NUnit.Framework;
 using UnityEngine;
 public class WeaponBehavior : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class WeaponBehavior : MonoBehaviour
     private PlayerGUI playerGUI;
     private bool isReloading = false;
     private float reloadTime;
+    private bool isFiring = false;
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -52,25 +54,32 @@ public class WeaponBehavior : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.R) && !isReloading)
             StartCoroutine(Reload());
         
-        if(Input.GetMouseButton(0) && !isReloading)
+        if(Input.GetMouseButton(0) && !isReloading && !isFiring)
+        {
             StartCoroutine(Fire());
+        }
 
     }
     IEnumerator Fire()
     {
-        if(Time.time >= fireRate && WeaponItem.ammoInMag > 0 && !isReloading)
+        if(WeaponItem.ammoInMag > 0 && !isReloading)
         {
+            isFiring = true;
             playerAC.Fire(true);
             WeaponItem.ammoInMag--;
             fireRate = Time.time + weaponData.fireRate;
             playerGUI.ammo(WeaponItem.ammoInMag, WeaponItem.currentAmmo);
+            
+            yield return new WaitForSeconds(weaponData.fireRate);
+            
+            isFiring = false;
         }
         else if(WeaponItem.ammoInMag == 0 && !isReloading)
         {
             StartCoroutine(Reload());
         }
-        yield return null;
         playerAC.Fire(false);
+        isFiring = false;
     }
     IEnumerator Reload()
     {

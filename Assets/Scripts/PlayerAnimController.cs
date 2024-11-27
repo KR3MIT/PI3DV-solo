@@ -1,9 +1,7 @@
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEditor.Animations;
-using UnityEditor.Timeline.Actions;
-using Unity.VisualScripting;
-using Unity.Mathematics;
-using UnityEngine.Rendering;
+using UnityEngine.VFX;
 
 public class PlayerAnimController : MonoBehaviour
 {
@@ -13,7 +11,11 @@ public class PlayerAnimController : MonoBehaviour
     private Animator armAC;
     private GameObject viewModel = null;
     private FpsController fps;
-    public float strafeSway = 1f;
+    private VisualEffect muzzle;
+    private ParticleSystem casing;
+    [SerializeField] private float strafeSway = 1f;
+    [SerializeField] private float kickStrenght;
+    
     void Awake()
     {
         fps = GetComponent<FpsController>();
@@ -35,13 +37,22 @@ public class PlayerAnimController : MonoBehaviour
 
         viewModel = Instantiate(weaponPrefab, Camera.main.transform);
 
-        armAC = viewModel.transform.GetChild(0).GetComponent<Animator>();
-        weaponAC = viewModel.transform.GetChild(1).GetComponent<Animator>();
+        armAC = viewModel.GetComponent<ViewModelRef>().viewObject.GetComponent<Animator>();
+        weaponAC = viewModel.GetComponent<ViewModelRef>().weaponObject.GetComponent<Animator>();
+
+        muzzle = viewModel.GetComponent<ViewModelRef>().muzzle;
+        casing = viewModel.GetComponent<ViewModelRef>().casing;
     }
     public void Fire(bool isFiring)
     {
         weaponAC.SetBool("Fire", isFiring);
         armAC.SetBool("Fire", isFiring);
+        if (isFiring)
+        {
+            StartCoroutine(KickBack());
+            muzzle.Play();
+            casing.Play();
+        }
     }
     public void Reload()
     {
@@ -64,5 +75,15 @@ public class PlayerAnimController : MonoBehaviour
 
         Quaternion _swayVector = Quaternion.Euler(new Vector3( 0, 0, -_sway));
         _view.localRotation = Quaternion.Lerp(_view.localRotation, _swayVector, Time.deltaTime * 4f);
+    }
+    IEnumerator KickBack()
+    {
+        Transform _view = viewModel.GetComponent<ViewModelRef>().weaponObject.transform;
+
+        Vector3 _kick = new Vector3(0, 0, -weaponData.kickBack * kickStrenght);
+
+        _view.localPosition = Vector3.Lerp(_view.localPosition, _kick, 1.5f);
+
+        yield return new WaitForSeconds(weaponData.fireRate);
     }
 }

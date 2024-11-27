@@ -20,6 +20,7 @@ MonoBehaviour:
   ammoInMag: 30
   currentAmmo: 150
   damage: 30
-  fireRate: 0.05
+  fireRate: 0.1
   reloadTime: 3.667
   fireClips: []
+  kickBack: 1
