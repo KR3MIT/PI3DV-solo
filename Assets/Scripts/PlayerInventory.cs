@@ -34,7 +34,6 @@ public class PlayerInventory : MonoBehaviour
             slots[0] = _weapon;       
         else if(slots[1] == null)
             slots[1] = _weapon;
-        
          SetCurrentWeapon();
     }
     private void dropWeapon()
