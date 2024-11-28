@@ -1,5 +1,4 @@
 using System.Collections;
-using NUnit.Framework;
 using UnityEngine;
 public class WeaponBehavior : MonoBehaviour
 {
@@ -18,6 +17,7 @@ public class WeaponBehavior : MonoBehaviour
     private bool isReloading = false;
     private float reloadTime;
     private bool isFiring = false;
+    [SerializeField]private LayerMask layer = default;
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -67,6 +67,7 @@ public class WeaponBehavior : MonoBehaviour
             isFiring = true;
             playerAC.Fire(true);
             WeaponItem.ammoInMag--;
+            ShootRaycast();
             fireRate = Time.time + weaponData.fireRate;
             playerGUI.ammo(WeaponItem.ammoInMag, WeaponItem.currentAmmo);
             yield return new WaitForSeconds(weaponData.fireRate);
@@ -81,13 +82,16 @@ public class WeaponBehavior : MonoBehaviour
     }
     private void ShootRaycast()
     {
-        RaycastHit hit;
-        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100))
+        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 100, layer);
+        if(hit.collider == null)
+            return;
+        if(hit.collider.CompareTag("Enemy"))
         {
-            if(hit.collider.gameObject.tag == "Enemy")
-            {
-                hit.collider.gameObject.GetComponent<Enemy>().TakeDamage(damage);
-            }
+            Enemy _enemy = hit.collider.GetComponent<Enemy>();
+            _enemy.TakeDamage(damage);
+            string _name = _enemy.gameObject.name;
+            float _health = _enemy.health;
+            Debug.Log(_name + ", health : "+ _health);
         }
     }
     IEnumerator Reload()

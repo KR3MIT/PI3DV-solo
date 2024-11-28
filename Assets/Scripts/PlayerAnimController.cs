@@ -15,6 +15,7 @@ public class PlayerAnimController : MonoBehaviour
     private bool isFiring = false;
     private float time;
     [SerializeField] private float strafeSway = 1f;
+    [SerializeField] private Light Light = default;
     
     void Awake()
     {
@@ -49,10 +50,13 @@ public class PlayerAnimController : MonoBehaviour
         armAC.SetBool("Fire", _isFiring);
         if(!_isFiring)
             return;
-        Debug.Log("Fire");
         time = 0;
         muzzle.Play();
         casing.Play();
+
+        Light _light = Instantiate(Light, muzzle.transform.position, Quaternion.identity);
+        Destroy(_light.gameObject,.02f);
+
         StartCoroutine(FireDelay());
     }
     IEnumerator FireDelay()
@@ -92,7 +96,6 @@ public class PlayerAnimController : MonoBehaviour
         time += Time.deltaTime;
 
         float _kick = weaponData.kickCurve.Evaluate(time);
-        Debug.Log(_kick);
         Vector3 _kickVector = new Vector3(0, 0, -_kick * weaponData.kickStrenght);
         _view.localPosition = _kickVector;
     }

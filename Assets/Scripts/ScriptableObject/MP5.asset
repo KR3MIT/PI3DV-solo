@@ -23,19 +23,28 @@ MonoBehaviour:
   fireRate: 0.1
   reloadTime: 3.667
   fireClips: []
-  kickStrenght: 3
+  kickStrenght: 1
   kickCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2.229011
-      outSlope: 2.229011
+      inSlope: 5.8200865
+      outSlope: 5.8200865
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.042787287
+      outWeight: 0.03422983
+    - serializedVersion: 3
+      time: 0.0020805951
+      value: 0.049914967
+      inSlope: 0.037855573
+      outSlope: 0.037855573
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.1
       value: 0
