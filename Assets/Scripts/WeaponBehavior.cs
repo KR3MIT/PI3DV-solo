@@ -69,9 +69,7 @@ public class WeaponBehavior : MonoBehaviour
             WeaponItem.ammoInMag--;
             fireRate = Time.time + weaponData.fireRate;
             playerGUI.ammo(WeaponItem.ammoInMag, WeaponItem.currentAmmo);
-            
             yield return new WaitForSeconds(weaponData.fireRate);
-            
             isFiring = false;
         }
         else if(WeaponItem.ammoInMag == 0 && !isReloading)
@@ -80,6 +78,17 @@ public class WeaponBehavior : MonoBehaviour
         }
         playerAC.Fire(false);
         isFiring = false;
+    }
+    private void ShootRaycast()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100))
+        {
+            if(hit.collider.gameObject.tag == "Enemy")
+            {
+                hit.collider.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+            }
+        }
     }
     IEnumerator Reload()
     {

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -13,8 +12,9 @@ public class PlayerAnimController : MonoBehaviour
     private FpsController fps;
     private VisualEffect muzzle;
     private ParticleSystem casing;
+    private bool isFiring = false;
+    private float time;
     [SerializeField] private float strafeSway = 1f;
-    [SerializeField] private float kickStrenght;
     
     void Awake()
     {
@@ -43,16 +43,23 @@ public class PlayerAnimController : MonoBehaviour
         muzzle = viewModel.GetComponent<ViewModelRef>().muzzle;
         casing = viewModel.GetComponent<ViewModelRef>().casing;
     }
-    public void Fire(bool isFiring)
+    public void Fire(bool _isFiring)
     {
-        weaponAC.SetBool("Fire", isFiring);
-        armAC.SetBool("Fire", isFiring);
-        if (isFiring)
-        {
-            StartCoroutine(KickBack());
-            muzzle.Play();
-            casing.Play();
-        }
+        weaponAC.SetBool("Fire", _isFiring);
+        armAC.SetBool("Fire", _isFiring);
+        if(!_isFiring)
+            return;
+        Debug.Log("Fire");
+        time = 0;
+        muzzle.Play();
+        casing.Play();
+        StartCoroutine(FireDelay());
+    }
+    IEnumerator FireDelay()
+    {
+        isFiring = true;
+        yield return new WaitForSeconds(weaponData.fireRate);
+        isFiring = false;
     }
     public void Reload()
     {
@@ -64,11 +71,14 @@ public class PlayerAnimController : MonoBehaviour
     {
         if(viewModel == null)
             return;
-            DirectionalSway();
+        DirectionalSway();
+        
+        if(isFiring)
+            KickBack();
     }
     private void DirectionalSway()
     {   
-        Transform _view = viewModel.transform.GetChild(1);
+        Transform _view = viewModel.GetComponent<ViewModelRef>().weaponObject.transform;
 
         float _velocity = fps._moveInput.x;
         float _sway = strafeSway * _velocity;
@@ -76,14 +86,14 @@ public class PlayerAnimController : MonoBehaviour
         Quaternion _swayVector = Quaternion.Euler(new Vector3( 0, 0, -_sway));
         _view.localRotation = Quaternion.Lerp(_view.localRotation, _swayVector, Time.deltaTime * 4f);
     }
-    IEnumerator KickBack()
+    private void KickBack()
     {
         Transform _view = viewModel.GetComponent<ViewModelRef>().weaponObject.transform;
+        time += Time.deltaTime;
 
-        Vector3 _kick = new Vector3(0, 0, -weaponData.kickBack * kickStrenght);
-
-        _view.localPosition = Vector3.Lerp(_view.localPosition, _kick, 1.5f);
-
-        yield return new WaitForSeconds(weaponData.fireRate);
+        float _kick = weaponData.kickCurve.Evaluate(time);
+        Debug.Log(_kick);
+        Vector3 _kickVector = new Vector3(0, 0, -_kick * weaponData.kickStrenght);
+        _view.localPosition = _kickVector;
     }
 }

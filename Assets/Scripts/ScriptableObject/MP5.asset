@@ -20,7 +20,31 @@ MonoBehaviour:
   ammoInMag: 30
   currentAmmo: 150
   damage: 30
-  fireRate: 1
+  fireRate: 0.1
   reloadTime: 3.667
   fireClips: []
-  kickBack: 1
+  kickStrenght: 3
+  kickCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.229011
+      outSlope: 2.229011
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.042787287
+    - serializedVersion: 3
+      time: 0.1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
