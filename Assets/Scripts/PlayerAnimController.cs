@@ -11,7 +11,7 @@ public class PlayerAnimController : MonoBehaviour
     private GameObject viewModel = null;
     private FpsController fps;
     private VisualEffect muzzle;
-    private ParticleSystem casing;
+    private VisualEffect casing;
     private bool isFiring = false;
     private float time;
     [SerializeField] private float strafeSway = 1f;

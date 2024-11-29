@@ -6,5 +6,5 @@ public class ViewModelRef : MonoBehaviour
     public GameObject weaponObject;
     public GameObject viewObject;
     public VisualEffect muzzle;
-    public ParticleSystem casing;
+    public VisualEffect casing;
 }
