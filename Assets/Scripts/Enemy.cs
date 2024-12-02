@@ -1,23 +1,38 @@
 using UnityEngine;
-
+using UnityEngine.AI;
+using System.Collections;
 public class Enemy : MonoBehaviour
 {
-    public enum State
+    private enum State
     {
         Idle,
         Move,
         Attack
     }
+
+    public float sightRange, attackRange;
+    public float fireRate = 0.5f;
     public float health = 100;
+    private bool isFiring = false;
+    private bool playerInSight, playerInRange;
     private State currentState;
-    [SerializeField] private Animator anim;
-    [SerializeField] private float range = 50;
+    private NavMeshAgent agent;
     [SerializeField] private State state;
-    void Start()
+    [SerializeField] private Transform Target;
+    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private Animator anim;
+    
+    private void Start()
     {
         currentState = State.Idle;
+        agent = GetComponent<NavMeshAgent>();
     }
-    void Update()
+    private void FixedUpdate()
+    {
+        UpdateState();
+        UpdateAnim();
+    }
+    private void UpdateState()
     {
         switch (currentState)
         {
@@ -32,31 +47,54 @@ public class Enemy : MonoBehaviour
                 break;
         }
     }
-    void Idle()
+    private void UpdateAnim()
     {
         
-        //currentState = State.Move;
     }
-    void Move()
+    private void Idle()
     {
-        
-        //currentState = State.Attack;
+        playerInSight = Physics.CheckSphere(transform.position, sightRange, playerLayer);
+        if(playerInSight)
+            currentState = State.Move;
     }
-    void Attack()
+    private void Move()
     {
-        
-        //currentState = State.Move;
+        agent.SetDestination(Target.position);
+        playerInRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
+        if(playerInRange)
+            currentState = State.Attack;
     }
-        
-    public void TakeDamage(float _damage)
+    private void Attack()
     {
-        health -= _damage;
+        agent.SetDestination(transform.position);
+        if(!playerInRange) 
+            currentState = State.Move;
+        
+        if (!isFiring)
+        {
+            isFiring = true;
+            Fire();
+            StartCoroutine(FireDelay());
+        }
+    }
+    private void Fire()
+    {
+        
+    }
+
+    private IEnumerator FireDelay()
+    {
+        yield return new WaitForSeconds(fireRate);
+    }
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
         if (health <= 0)
         {
             Die();
         }
     }
-    void Die()
+    private void Die()
     {
         Destroy(gameObject);
     }
