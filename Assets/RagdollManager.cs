@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 public class RagdollManager : MonoBehaviour
 {
@@ -11,27 +9,28 @@ public class RagdollManager : MonoBehaviour
     public Animator animator;
     private NavMeshAgent agent;
     private Enemy enemy;
+    private CapsuleCollider collider;
 
     public bool isRagdoll;
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            ToggleRagdoll();
+        }
+    }
     void Start()
     {
-        enemy = GetComponent<Enemy>();
         agent = GetComponent<NavMeshAgent>();
+        enemy = GetComponent<Enemy>();
+        collider = GetComponent<CapsuleCollider>();
         
         colliders = GetComponentsInChildren<Collider>();
         rigidbodies = GetComponentsInChildren<Rigidbody>();
         
         SetRagdoll(false);
     }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            ToggleRagdoll();
-        }
-    }
-
     public void ToggleRagdoll()
     {
         foreach (var col in colliders)
@@ -51,10 +50,10 @@ public class RagdollManager : MonoBehaviour
         animator.enabled = !isRagdoll;
         agent.enabled = !isRagdoll;
         enemy.enabled = !isRagdoll;
+        collider.enabled = !isRagdoll;
         
         isRagdoll = !isRagdoll;
     }
-    
     public void SetRagdoll(bool value)
     {
         foreach (var col in colliders)
@@ -70,9 +69,10 @@ public class RagdollManager : MonoBehaviour
             rb.isKinematic = !value;
         }
         
-        enemy.enabled = !value;
         animator.enabled = !value;
         agent.enabled = !value;
+        enemy.enabled = !value;
+        collider.enabled = !value;
         
         isRagdoll = value;
     }

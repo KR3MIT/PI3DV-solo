@@ -5,6 +5,7 @@ public class PlayerInventory : MonoBehaviour
     public GameObject[] slots = new GameObject[2];
     public GameObject currentWeapon;
     public float dropForce = 10f;
+    
     private PlayerAnimController playerAC;
     private WeaponBehavior weaponB;
     private int currentSlot;
@@ -34,9 +35,9 @@ public class PlayerInventory : MonoBehaviour
             slots[0] = _weapon;       
         else if(slots[1] == null)
             slots[1] = _weapon;
-         SetCurrentWeapon();
+        SetCurrentWeapon();
     }
-    private void dropWeapon()
+    public void dropWeapon()
     {
         if(currentWeapon != null)
         {

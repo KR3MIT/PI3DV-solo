@@ -353,7 +353,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1742898383018988, guid: 680a11299af23874bbc0b94457026c5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1325486545}
   m_SourcePrefab: {fileID: 100100000, guid: 680a11299af23874bbc0b94457026c5e, type: 3}
 --- !u!4 &197791863 stripped
 Transform:
@@ -1440,6 +1443,24 @@ CapsuleCollider:
   m_Height: 0.4059943
   m_Direction: 1
   m_Center: {x: 0, y: 0.20299715, z: 0}
+--- !u!1 &1325486538 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1742898383018988, guid: 680a11299af23874bbc0b94457026c5e, type: 3}
+  m_PrefabInstance: {fileID: 192623507}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1325486545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325486538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f6b55c639a66d43a2495ff777a06db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 130
 --- !u!1 &1421652978 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7949026584299408086, guid: 327eab495e8248e4ba37438a999ac1ce, type: 3}
@@ -1985,6 +2006,14 @@ PrefabInstance:
       propertyPath: Target
       value: 
       objectReference: {fileID: 197791863}
+    - target: {fileID: 6622103744741947348, guid: 327eab495e8248e4ba37438a999ac1ce, type: 3}
+      propertyPath: damage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6622103744741947348, guid: 327eab495e8248e4ba37438a999ac1ce, type: 3}
+      propertyPath: health
+      value: 130
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

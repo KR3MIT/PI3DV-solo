@@ -7,22 +7,25 @@ public class Enemy : MonoBehaviour
     {
         Idle,
         Move,
-        Attack
+        Attack,
+        Dead
     }
     public float sightRange, attackRange;
     public float fireRate = 0.5f;
     public float health = 100;
     public float initialAccuracy = 6f;
     public float minimumAccuracy = 2f;
+    public int damage = 11;
+    
     private float currentAccuracy;
-    private float damage = 11;
     private bool isFiring = false;
     private bool playerInSight, playerInRange;
-    private State currentState;
+    
     private NavMeshAgent agent;
     private CharacterController cc;
+    private RagdollManager ragdoll;
     
-    [SerializeField] private State state;
+    [SerializeField] private State currentState;
     [SerializeField] private Transform Target;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private Animator anim;
@@ -32,6 +35,7 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         cc = GetComponent<CharacterController>();
         currentAccuracy = initialAccuracy;
+        ragdoll = GetComponent<RagdollManager>();
     }
     private void FixedUpdate()
     {
@@ -50,6 +54,9 @@ public class Enemy : MonoBehaviour
                 break;
             case State.Attack:
                 Attack();
+                break;
+            case State.Dead:
+                Dead();
                 break;
         }
     }
@@ -97,6 +104,7 @@ public class Enemy : MonoBehaviour
         }
         
     }
+    private void Dead() {}
     private void Fire()
     {
         var dirVector = Target.position - transform.position;
@@ -105,13 +113,7 @@ public class Enemy : MonoBehaviour
         if(Physics.Raycast(transform.position, rotatedVector, out RaycastHit hit, attackRange))
         {
             if (hit.collider.CompareTag("Player"))
-            {
-                Debug.Log("hitplayer");
-            }
-        }
-        else
-        {
-            Debug.Log("missed");
+                Target.GetComponent<PlayerInfo>().TakeDamage(damage);
         }
     }
     private IEnumerator FireDelay()
@@ -119,16 +121,17 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(fireRate);
         isFiring = false;
     }
-    public void TakeDamage(float damage)
+    public void TakeDamage(int _damage)
     {
-        health -= damage;
+        health -= _damage;
         if (health <= 0)
-        {
             Die();
-        }
     }
     private void Die()
     {
-        Destroy(gameObject);
+        agent.SetDestination(transform.position);
+        currentState = State.Dead;
+        Debug.Log(this.name + " killed");
+        ragdoll.ToggleRagdoll();
     }
 }
