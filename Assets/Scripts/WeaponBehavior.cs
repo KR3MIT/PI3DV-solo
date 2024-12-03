@@ -91,7 +91,6 @@ public class WeaponBehavior : MonoBehaviour
             _enemy.TakeDamage(damage);
             string _name = _enemy.gameObject.name;
             float _health = _enemy.health;
-            Debug.Log(_name + ", health : "+ _health);
         }
     }
     IEnumerator Reload()
