@@ -12,7 +12,8 @@ public class Enemy : MonoBehaviour
     public float sightRange, attackRange;
     public float fireRate = 0.5f;
     public float health = 100;
-    public float initialAccuracy = 0.5f;
+    public float initialAccuracy = 6f;
+    public float minimumAccuracy = 2f;
     private float currentAccuracy;
     private float damage = 11;
     private bool isFiring = false;
@@ -79,7 +80,7 @@ public class Enemy : MonoBehaviour
     }
     private void Attack()
     {
-        currentAccuracy = Mathf.MoveTowards(currentAccuracy, 0, 0.02f);
+        currentAccuracy = Mathf.MoveTowards(currentAccuracy, minimumAccuracy, 0.02f);
         agent.SetDestination(transform.position);
         
         playerInRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
@@ -105,8 +106,12 @@ public class Enemy : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                
+                Debug.Log("hitplayer");
             }
+        }
+        else
+        {
+            Debug.Log("missed");
         }
     }
     private IEnumerator FireDelay()
