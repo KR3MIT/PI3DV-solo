@@ -12,6 +12,8 @@ public class PlayerInfo : MonoBehaviour
         fps = GetComponent<FpsController>();
         inv = GetComponent<PlayerInventory>();
         gui = GetComponent<PlayerGUI>();
+        
+        gui.Health(health);
     }
     public void TakeDamage(int damage)
     {
@@ -19,6 +21,7 @@ public class PlayerInfo : MonoBehaviour
         
         if (health <= 0)
             Die();
+        gui.Health(health);
     }
     private void Die()
     {

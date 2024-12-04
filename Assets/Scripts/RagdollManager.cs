@@ -3,20 +3,20 @@ using UnityEngine.AI;
 
 public class RagdollManager : MonoBehaviour
 {
+    private CapsuleCollider collider;
     private Collider[] colliders;
     private Rigidbody[] rigidbodies;
 
     public Animator animator;
     private NavMeshAgent agent;
     private Enemy enemy;
-    private CapsuleCollider collider;
 
     public bool isRagdoll;
     void Start()
     {
+        collider = GetComponent<CapsuleCollider>();
         agent = GetComponent<NavMeshAgent>();
         enemy = GetComponent<Enemy>();
-        collider = GetComponent<CapsuleCollider>();
         
         colliders = GetComponentsInChildren<Collider>();
         rigidbodies = GetComponentsInChildren<Rigidbody>();

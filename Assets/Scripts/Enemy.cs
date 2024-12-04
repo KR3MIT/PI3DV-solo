@@ -22,7 +22,6 @@ public class Enemy : MonoBehaviour
     private bool playerInSight, playerInRange;
     
     private NavMeshAgent agent;
-    private CharacterController cc;
     private RagdollManager ragdoll;
     
     [SerializeField] private State currentState;
@@ -33,7 +32,6 @@ public class Enemy : MonoBehaviour
     {
         currentState = State.Idle;
         agent = GetComponent<NavMeshAgent>();
-        cc = GetComponent<CharacterController>();
         currentAccuracy = initialAccuracy;
         ragdoll = GetComponent<RagdollManager>();
     }
@@ -96,14 +94,13 @@ public class Enemy : MonoBehaviour
             currentState = State.Move;
         
         anim.SetBool("isFiring",isFiring);
-        
+
         if (!isFiring)
         {
             isFiring = true;
             Fire();
             StartCoroutine(FireDelay());
         }
-        
     }
     private void Dead() {}
     private void Fire()

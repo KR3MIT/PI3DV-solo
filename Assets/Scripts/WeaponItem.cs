@@ -10,7 +10,6 @@ public class WeaponItem : MonoBehaviour
         if(_other.gameObject.CompareTag("Player"))
         {
         _other.gameObject.GetComponentInParent<PlayerInventory>().addWeapon(this.gameObject);
-        Debug.Log("picked up " + weaponData.weaponName);
         gameObject.SetActive(false);
         }
     }
