@@ -457,6 +457,7 @@ GameObject:
   - component: {fileID: 2128063971787149807}
   - component: {fileID: 8594129675416913203}
   - component: {fileID: 5888477816431148822}
+  - component: {fileID: 876667053094203874}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -657,6 +658,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: name
+  layer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &8594129675416913203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -671,6 +675,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponAC: {fileID: 0}
   strafeSway: 5
+  Light: {fileID: 7048762687052885462, guid: 3cde49ef04a735743974eb1b62018cfd, type: 3}
 --- !u!114 &5888477816431148822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -688,6 +693,19 @@ MonoBehaviour:
   - {fileID: 0}
   currentWeapon: {fileID: 0}
   dropForce: 5
+--- !u!114 &876667053094203874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742898383018988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f6b55c639a66d43a2495ff777a06db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 130
 --- !u!1 &1537620682895143006
 GameObject:
   m_ObjectHideFlags: 0

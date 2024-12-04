@@ -89,6 +89,7 @@ public class Enemy : MonoBehaviour
     {
         currentAccuracy = Mathf.MoveTowards(currentAccuracy, minimumAccuracy, 0.02f);
         agent.SetDestination(transform.position);
+        this.transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(Target.position - transform.position), 5f);
         
         playerInRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
         if(!playerInRange) 
@@ -123,6 +124,7 @@ public class Enemy : MonoBehaviour
     }
     public void TakeDamage(int _damage)
     {
+        anim.SetTrigger("Hit");
         health -= _damage;
         if (health <= 0)
             Die();

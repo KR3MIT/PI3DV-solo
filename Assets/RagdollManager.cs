@@ -12,14 +12,6 @@ public class RagdollManager : MonoBehaviour
     private CapsuleCollider collider;
 
     public bool isRagdoll;
-
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            ToggleRagdoll();
-        }
-    }
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
