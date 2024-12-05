@@ -5,6 +5,7 @@ using UnityEngine.VFX;
 public class PlayerAnimController : MonoBehaviour
 {
     [HideInInspector]public Animator weaponAC;
+    
     private WeaponBase weaponData;
     private GameObject weaponPrefab;
     private Animator armAC;
@@ -12,10 +13,12 @@ public class PlayerAnimController : MonoBehaviour
     private FpsController fps;
     private VisualEffect muzzle;
     private VisualEffect casing;
+    
     private bool isFiring = false;
     private float time;
+    
     [SerializeField] private float strafeSway = 1f;
-    [SerializeField] private Light Light = default;
+    [SerializeField] private Light light = default;
     
     void Awake()
     {
@@ -54,7 +57,7 @@ public class PlayerAnimController : MonoBehaviour
         muzzle.Play();
         casing.Play();
 
-        Light _light = Instantiate(Light, muzzle.transform.position, Quaternion.identity);
+        Light _light = Instantiate(light, muzzle.transform.position, Quaternion.identity);
         Destroy(_light.gameObject,.02f);
 
         StartCoroutine(FireDelay());

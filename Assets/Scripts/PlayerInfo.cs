@@ -25,6 +25,7 @@ public class PlayerInfo : MonoBehaviour
     }
     private void Die()
     {
+        gui.DeathScreen();
         fps.enabled = false;
         inv.dropWeapon();
         inv.enabled = false;

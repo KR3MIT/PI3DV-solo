@@ -48,9 +48,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4769309004014609353, guid: 9e4f0ec0bf701a540859d6a0de7c1e10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9e4f0ec0bf701a540859d6a0de7c1e10, type: 3}
       propertyPath: m_Name
       value: _Industrial_Junkyard
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9e4f0ec0bf701a540859d6a0de7c1e10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4148119721809601931, guid: 9e4f0ec0bf701a540859d6a0de7c1e10, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

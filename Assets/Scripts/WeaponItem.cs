@@ -9,8 +9,8 @@ public class WeaponItem : MonoBehaviour
     {
         if(_other.gameObject.CompareTag("Player"))
         {
-        _other.gameObject.GetComponentInParent<PlayerInventory>().addWeapon(this.gameObject);
-        gameObject.SetActive(false);
+            _other.gameObject.GetComponentInParent<PlayerInventory>().addWeapon(this.gameObject);
+            gameObject.SetActive(false);
         }
     }
     public void updateValues(int _ammoInMag, int _currentAmmo)

@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     
     private NavMeshAgent agent;
     private RagdollManager ragdoll;
+    private EnemyVFX vfx;
     
     [SerializeField] private State currentState;
     [SerializeField] private Transform Target;
@@ -34,6 +35,7 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         currentAccuracy = initialAccuracy;
         ragdoll = GetComponent<RagdollManager>();
+        vfx = GetComponent<EnemyVFX>();
     }
     private void FixedUpdate()
     {
@@ -85,7 +87,6 @@ public class Enemy : MonoBehaviour
     }
     private void Attack()
     {
-        currentAccuracy = Mathf.MoveTowards(currentAccuracy, minimumAccuracy, 0.02f);
         agent.SetDestination(transform.position);
         this.transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(Target.position - transform.position), 5f);
         
@@ -94,7 +95,17 @@ public class Enemy : MonoBehaviour
             currentState = State.Move;
         
         anim.SetBool("isFiring",isFiring);
-
+        
+        var dirVector = Target.position - transform.position;
+        
+        if(Physics.Raycast(transform.position, dirVector, out RaycastHit hit, attackRange))
+        {
+            if (!hit.collider.CompareTag("Player"))
+                return;
+        }
+        
+        currentAccuracy = Mathf.MoveTowards(currentAccuracy, minimumAccuracy, 0.02f);
+        
         if (!isFiring)
         {
             isFiring = true;
@@ -105,6 +116,8 @@ public class Enemy : MonoBehaviour
     private void Dead() {}
     private void Fire()
     {
+        vfx.FireWeaponVFX();
+        
         var dirVector = Target.position - transform.position;
         var rotatedVector = Quaternion.Euler(Random.Range(-currentAccuracy, currentAccuracy), Random.Range(-currentAccuracy, currentAccuracy), Random.Range(-currentAccuracy, currentAccuracy)) * dirVector;
         
@@ -130,7 +143,6 @@ public class Enemy : MonoBehaviour
     {
         agent.SetDestination(transform.position);
         currentState = State.Dead;
-        Debug.Log(this.name + " killed");
         ragdoll.ToggleRagdoll();
     }
 }

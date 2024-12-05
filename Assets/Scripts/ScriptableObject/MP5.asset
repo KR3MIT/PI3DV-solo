@@ -19,10 +19,11 @@ MonoBehaviour:
   magSize: 30
   ammoInMag: 30
   currentAmmo: 150
-  damage: 30
+  damage: 34
   fireRate: 0.1
   reloadTime: 3.667
   fireClips: []
+  force: 10
   kickStrenght: 1
   kickCurve:
     serializedVersion: 2
