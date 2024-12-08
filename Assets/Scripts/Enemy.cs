@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Animator anim;
     private void Start()
     {
+        Target = GameObject.Find("Player").transform;
         currentState = State.Idle;
         agent = GetComponent<NavMeshAgent>();
         currentAccuracy = initialAccuracy;

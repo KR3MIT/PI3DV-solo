@@ -49,6 +49,8 @@ public class PlayerAnimController : MonoBehaviour
     }
     public void Fire(bool _isFiring)
     {
+        if(viewModel == null)
+            return;
         weaponAC.SetBool("Fire", _isFiring);
         armAC.SetBool("Fire", _isFiring);
         if(!_isFiring)
