@@ -1,6 +1,7 @@
 using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
+    // Player inventory
     public GameObject[] slots = new GameObject[2];
     public GameObject currentWeapon;
     public float dropForce = 10f;
@@ -16,19 +17,20 @@ public class PlayerInventory : MonoBehaviour
     }
     void Update()
     {
+        // Drop the weapon
         if(Input.GetKeyDown(KeyCode.G))
             dropWeapon();
-        
+        // Switch the weapon
         if(Input.GetKeyDown(KeyCode.Q))
             SwitchWeapon();
     }
-    private void SetCurrentWeapon()
+    private void SetCurrentWeapon() // Set the current weapon
     {
         currentWeapon = slots[currentSlot];
         weaponB.SetValues();
         playerAC.InitiateWeapon(currentWeapon);
     }
-    public void addWeapon(GameObject _weapon)
+    public void addWeapon(GameObject _weapon) // Add a weapon to the inventory
     {
         if(slots[0] == null)
             slots[0] = _weapon;       
@@ -36,7 +38,7 @@ public class PlayerInventory : MonoBehaviour
             slots[1] = _weapon;
         SetCurrentWeapon();
     }
-    public void dropWeapon()
+    public void dropWeapon() // Drop the weapon
     {
         if(currentWeapon != null)
         {
@@ -48,7 +50,7 @@ public class PlayerInventory : MonoBehaviour
         }
         SetCurrentWeapon();
     }
-    private void SwitchWeapon()
+    private void SwitchWeapon() // Switch the weapon
     {
         if(currentSlot == 0)
             currentSlot = 1;

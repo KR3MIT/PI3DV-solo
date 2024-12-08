@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 public class RagdollManager : MonoBehaviour
 {
+    // Ragdoll manager
     private CapsuleCollider collider;
     private Collider[] colliders;
     private Rigidbody[] rigidbodies;
@@ -10,7 +11,7 @@ public class RagdollManager : MonoBehaviour
     public Animator animator;
     private NavMeshAgent agent;
     private Enemy enemy;
-
+    // Ragdoll state
     public bool isRagdoll;
     void Start()
     {
@@ -23,9 +24,9 @@ public class RagdollManager : MonoBehaviour
         
         SetRagdoll(false);
     }
-    public void ToggleRagdoll()
+    public void ToggleRagdoll() // Toggle the ragdoll
     {
-        foreach (var col in colliders)
+        foreach (var col in colliders) // Skip the main collider
         {
             if (col.transform.gameObject == gameObject)
             {
@@ -34,11 +35,11 @@ public class RagdollManager : MonoBehaviour
                 
             col.enabled = isRagdoll;
         }
-        foreach (var rb in rigidbodies)
+        foreach (var rb in rigidbodies) // sets the rigidbody kinematic to isRagdoll
         {
             rb.isKinematic = !isRagdoll;
         }
-        
+        // Set the animator, agent, enemy and collider to the opposite of isRagdoll
         animator.enabled = !isRagdoll;
         agent.enabled = !isRagdoll;
         enemy.enabled = !isRagdoll;
@@ -46,21 +47,21 @@ public class RagdollManager : MonoBehaviour
         
         isRagdoll = !isRagdoll;
     }
-    public void SetRagdoll(bool value)
+    public void SetRagdoll(bool value) // Set the ragdoll state
     {
-        foreach (var col in colliders)
+        foreach (var col in colliders) 
         {
-            if (col.transform.gameObject == gameObject)
+            if (col.transform.gameObject == gameObject) // Skip the main collider
             {
                 continue;
             }
             col.enabled = value;
         }
-        foreach (var rb in rigidbodies)
+        foreach (var rb in rigidbodies) // sets the rigidbody kinematic to value
         {
             rb.isKinematic = !value;
         }
-        
+        // same as before
         animator.enabled = !value;
         agent.enabled = !value;
         enemy.enabled = !value;
