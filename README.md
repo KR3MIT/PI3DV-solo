@@ -1,4 +1,4 @@
-# PI3DV-solo
+# Mini-Project
 
 Project Name: Terrorist hunt
 
@@ -33,7 +33,7 @@ Game features:
 
 # How were the Different Parts of the Course Utilized:
 
-The player controller was not made from scratch, it was shamelessly taken from Atil's fpscontroller (see resources.) The weapon mechanics and visuals were all home made, the shooting is raycasts, with the camera as its origin, the weapon stats come from a scriptable object that contains all sorts of information, such as fire rate, damage, weapon world model, and weapon view model. When the player collides with the weapon world model, it is picked up and placed in the player's inventory, a script then takes the weapon data and instantiates the view model for the player to see. The strafing and firing animations are made procedurally using animation curves and vector3 with lerp. When the player drops a weapon, the world model becomes visible and is given a force forward and with a rigidbody it falls to the ground, like when you drop a weapon is CS.
+The player controller was not made from scratch, it was shamelessly taken from Atil's fpscontroller (see resources.) The weapon mechanics and visuals were all home made, the shooting is raycasts, with the camera as its origin, the weapon stats come from a scriptable object that contains all sorts of information, such as fire rate, damage, weapon world model, and weapon view model. When the player collides with the weapon world model, it is picked up and placed in the player's inventory, a script then takes the weapon data and instantiates the view model for the player to see. The strafing and firing animations are made procedurally using animation curves, vector3 with lerp and inverse kinematics. When the player drops a weapon, the world model becomes visible and is given a force forward and with a rigidbody it falls to the ground, like when you drop a weapon is CS. 
 
 The enemies use AI nav mesh to navigate and move towards the player. The AI’s operate using a state machine, starting with idle, where they just stand still, when the player enters the AI’s sight range they start moving towards the player, then when the player is within firing range, they start attacking, as mentioned before, They don't have perfect accuracy. When the AI has or less than 0 health they enter the dead state where they ragdoll on the ground and stay that way. The spawning of the enemies is based on trigger boxes and waves. So they only spawn when the player enters a certain area. 
 
@@ -88,5 +88,8 @@ over about a month. might be totally off.
 # Used Resources
 
 * First Person Controller for Unity (Q3-inspired first person controller) \- [https://github.com/atil/fpscontroller](https://github.com/atil/fpscontroller) 
+
 * Fab.com \- [https://www.fab.com/sellers/Quixel](https://www.fab.com/sellers/Quixel)   
-* Mixamo.com \- [https://www.mixamo.com/\#/](https://www.mixamo.com/#/) 
+* Mixamo.com \- [https://www.mixamo.com/\#/](https://www.mixamo.com/#/)   
+* Github Copilot  
+* Why Animation Curves In Unity Are So Useful by Game Dev Guide [https://www.youtube.com/watch?v=Nc9x0LfvJhI](https://www.youtube.com/watch?v=Nc9x0LfvJhI) 
