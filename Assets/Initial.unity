@@ -1727,6 +1727,18 @@ PrefabInstance:
       value: Rusty_Pillar
       objectReference: {fileID: 0}
     - target: {fileID: 5362708853012171481, guid: f7f8c60851d214e4d9e2d0025395727d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5362708853012171481, guid: f7f8c60851d214e4d9e2d0025395727d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5362708853012171481, guid: f7f8c60851d214e4d9e2d0025395727d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5362708853012171481, guid: f7f8c60851d214e4d9e2d0025395727d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.031067
       objectReference: {fileID: 0}
@@ -3048,6 +3060,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5939200561366561915, guid: 4d0e9204eb846c64bbe24d992697b353, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6424270372748504769, guid: 4d0e9204eb846c64bbe24d992697b353, type: 3}
       propertyPath: m_Name
       value: Quarry_Cliff
@@ -3166,6 +3182,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2140561583479047511, guid: 5e60f12c0ea57b745aea4794c19f1b1f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3236,6 +3256,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7246429291365498961, guid: b872b2add8738e844bd56e63c72f795d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7246429291365498961, guid: b872b2add8738e844bd56e63c72f795d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7246429291365498961, guid: b872b2add8738e844bd56e63c72f795d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7246429291365498961, guid: b872b2add8738e844bd56e63c72f795d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.0339937
