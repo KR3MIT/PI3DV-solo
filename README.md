@@ -1,4 +1,4 @@
-# Mini-Project
+# Solo Project
 
 Project Name: Terrorist hunt
 
